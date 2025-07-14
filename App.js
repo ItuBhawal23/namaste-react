@@ -1,3 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 {
   /* <div id="parent">
         <div id="child">
@@ -12,10 +15,6 @@
 }
 
 // SYNTAX : React.createElement( tag, {attr(s): "", ...}, child | [children] )
-
-// const header = React.createElement("h1", {}, "Header");
-// const child = React.createElement("div", { id: "child" }, header);
-// const parent = React.createElement("div", { id: "parent" }, child);
 
 const parent = React.createElement("div", { id: "parent" }, [
   React.createElement("div", { id: "child" }, [
