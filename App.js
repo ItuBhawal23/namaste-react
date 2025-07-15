@@ -1,43 +1,42 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-{
-  /* <div id="parent">
-        <div id="child">
-            <h1></h1>
-            <h1></h1>
-        </div>
-        <div id="child2">
-            <h1></h1>
-            <h1></h1>
-        </div>
-    </div> */
-}
+// ! using Core React
 
-// SYNTAX : React.createElement( tag, {attr(s): "", ...}, child | [children] )
-
-const parent = React.createElement("div", { id: "parent" }, [
-  React.createElement("div", { id: "child" }, [
-    React.createElement("h1", {}, "This is h1 tag"),
-    React.createElement("h2", {}, "This is h2 tag")
-  ]),
-  React.createElement("div", { id: "child2" }, [
-    React.createElement("h1", {}, "This is h1 tag"),
-    React.createElement("h2", {}, "This is h2 tag")
-  ])
-]);
-
-// To fix this messy syntax => JSX (comes into picture)
-
-const heading = React.createElement(
-  "h1",
-  { id: "heading", xyz: "abc" },
-  "Hello world from React!"
-);
-console.log(heading); // returns a ReactElement (JS obj)
+const heading = React.createElement("h1", null, "Namaste React 🚀");
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// root.render(heading); // render method convert the ReactElement(obj) into a h1 tag and placed inside the root
-// if root has some elements inside that will get replaced with the ReactElement(obj)
-root.render(parent);
+root.render(heading);
+
+// ! Using JSX
+
+const jsxHeading = <h1 className="heading">Namaste React by JSX 🚀</h1>;
+
+// JSX ( transpiled before it reaches JS Engine) -> PARCEL -> Babel (JS compiler)
+// jsxHeading(JSX) converted to React.createElement by Babel => ReactElement- JS object => HTML Element(rendered)
+
+root.render(jsxHeading);
+
+// ! React Component [ Everything in React is Component ]
+
+// * Class Based Component - OLD
+// * Functional Component - NEW - Just JS function that returns JSX
+
+const ChildComponent = () => <h3>I am Child Component</h3>;
+
+const HeaderComponent = () => {
+  return (
+    <div>
+      <h1 className="header">Header Component as Functional Component 🚀</h1>
+      {/*  Babel transpile the JSX returned by the React Component to React.createElement which is
+      then converted to HTMLElement when rendered */}
+      {/* Component Composition */}
+      <ChildComponent />
+      <ChildComponent></ChildComponent>
+      {ChildComponent()}
+    </div>
+  );
+};
+
+root.render(<HeaderComponent />);
