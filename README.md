@@ -25,3 +25,37 @@
 - Lazy loading
 - Code splitting
 - makes app fast, performant, highly optimized that browser can load easily
+
+# Components Breakdown
+
+/\*\*
+
+- AppLayout
+- - Header
+- - Logo
+- - Nav Items
+-      - Home, About Us, Contact Us, Cart
+- - Body
+- - Search
+- - Restaurant Container
+-      - Restaurant card (list of cards)
+-        - Res name
+-        - Cuisine desc
+-        - Rating, time,
+- - Footer
+- - copyright
+- - links
+- - address, ...
+    \*/
+
+# Two types of Export/Import
+
+- Default Export/Import
+
+export default Component;
+import Component from "path"
+
+- Named Export/Import
+
+export const Component
+import {Component} from "path"
