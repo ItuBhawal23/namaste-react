@@ -28,25 +28,27 @@
 
 ## App Layout Structure
 
+```
 AppLayout
 ├── Header
-│ ├── Logo
-│ └── Nav Items
-│ ├── Home
-│ ├── About Us
-│ ├── Contact Us
-│ └── Cart
+│   ├── Logo
+│   └── Nav Items
+│       ├── Home
+│       ├── About Us
+│       ├── Contact Us
+│       └── Cart
 ├── Body
-│ ├── Search
-│ └── Restaurant Container
-│ └── Restaurant Card (List of Cards)
-│ ├── Restaurant Name
-│ ├── Cuisine Description
-│ └── Rating, Delivery Time
+│   ├── Search
+│   └── Restaurant Container
+│       └── Restaurant Card (List of Cards)
+│           ├── Restaurant Name
+│           ├── Cuisine Description
+│           └── Rating, Delivery Time
 └── Footer
-├── © Copyright
-├── Useful Links
-└── Address, etc.
+    ├── © Copyright
+    ├── Useful Links
+    └── Address, etc.
+```
 
 # Two types of Export/Import
 
