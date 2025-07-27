@@ -41,6 +41,8 @@ const HeaderComponent = () => {
 
 root.render(<HeaderComponent />);
 
+
+
 # Introducing React HOOKS
 
 // PROBLEM WITH NORMAL JS VARIABLE
@@ -57,15 +59,30 @@ NOTE: use this varName in JSX to render some UI. The UI will not get UPDATED whe
 // 1. useState()
 // 2. useEffect()
 
-// useState() - It is normal JS function that accepts a initial value as parameter and returns a array which is the StateVariable.
+// useState() - It is normal JS function that accepts a initial value as argument and returns a array which is the StateVariable.
 
 // Without Array Destructuring ->
 const arr = useState(initial stateValue) // passing initialVal is Optional?
 
 const arr[0] = stateVariable -> initialValue is assigned to it
-const arr[1] = setStateVariable - update method() that takes the updated/modified data as parameter and UPDATES THE StateVariable.
+const arr[1] = setStateVariable - update method() that takes the updated/modified data as argument and UPDATES THE StateVariable.
 
 Using Array Destructuring ->
 const [stateVariable, setStateVariable] = useState()
 
 // Local StateVariable (with super powers) React keep tracks of the State variable -> As soon as it changes/updates -> It re renders the component by comparing the old VirtualDOM ({}) with new Virtual DOM({}) [using the diffing algorithm] and then UPDATES the UI auto magically - This whole process is Reconciliation Algorithm (now known as React Fiber - from React16)
+
+
+2. useEffect()
+
+- It takes two args, cb() func & dependency array []
+- cb() is called after the Component is rendered
+
+- SYNTAX:
+  useEffect(() => {}, []);
+
+
+## Shimmer UI
+-> Instead of showing Loader/Spinner/some text like Loading..., a skeleton or dummy fake UI can be displayed.
+-> It provides a BETTER UX (user experience)
+-> (MUST BE FOLLOWED) YT, SWIGGY, ZOMATO or all big app follows it.
