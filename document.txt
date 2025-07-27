@@ -40,3 +40,32 @@ const HeaderComponent = () => {
 };
 
 root.render(<HeaderComponent />);
+
+# Introducing React HOOKS
+
+// PROBLEM WITH NORMAL JS VARIABLE
+
+NORMAL JS VARIABLE - with NO super power to automatically sync UI with DATA (whenever changes)
+let varName = [];
+
+varName = varName.filter((res) => res.data.avgRating > 4.4);
+
+NOTE: use this varName in JSX to render some UI. The UI will not get UPDATED when the data is filtered. 
+    : To resolve this data <--> UI sync issue } HOOKS came in picture
+
+// HOOKS 
+// 1. useState()
+// 2. useEffect()
+
+// useState() - It is normal JS function that accepts a initial value as parameter and returns a array which is the StateVariable.
+
+// Without Array Destructuring ->
+const arr = useState(initial stateValue) // passing initialVal is Optional?
+
+const arr[0] = stateVariable -> initialValue is assigned to it
+const arr[1] = setStateVariable - update method() that takes the updated/modified data as parameter and UPDATES THE StateVariable.
+
+Using Array Destructuring ->
+const [stateVariable, setStateVariable] = useState()
+
+// Local StateVariable (with super powers) React keep tracks of the State variable -> As soon as it changes/updates -> It re renders the component by comparing the old VirtualDOM ({}) with new Virtual DOM({}) [using the diffing algorithm] and then UPDATES the UI auto magically - This whole process is Reconciliation Algorithm (now known as React Fiber - from React16)

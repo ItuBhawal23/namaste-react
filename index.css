@@ -51,6 +51,12 @@ body {
       }
     }
 
+    .top-rated-filter {
+      & button {
+        cursor: pointer;
+      }
+    }
+
     .res-container {
       display: flex;
       flex-wrap: wrap;
