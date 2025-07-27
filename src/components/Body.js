@@ -1,31 +1,44 @@
+import { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
-import { resList } from "../utils/mockData";
-import { useState } from "react";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
-  // NORMAL JS VARIABLE - with NO super power to automatically sync UI with DATA (whenever changes)
-  let restaurantList = [];
+  const [res, setRes] = useState([]);
 
-  restaurantList = restaurantList.filter((res) => res.data.avgRating > 4.4);
+  const fetchRestaurants = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.714581&lng=88.428329&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
 
-  // Local StateVariable (with super powers) React keep tracks of the State variable -> As soon as it changes -> It re renders the component by comparing the old VirtualDOM ({}) with new Virtual DOM({}) [diff algorithm] and then UPDATES the UI auto magically - This whole process is Reconciliation Algorithm (now known as React Fiber - from React16)
+    const json = await data.json();
+    console.log("json", json);
 
-  // NORMAL JS ARRAY Destructuring...
-  // const [res, setRes] = useState(resList);
-
-  // Without Array Destructuring
-  const arr = useState(resList);
-
-  const res = arr[0];
-  const setRes = arr[1];
+    setRes(
+      json?.data.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  };
 
   const onFilter = () => {
-    const filterTopRatedRes = resList.filter((res) => res.info.avgRating > 4.4);
-
+    const filterTopRatedRes = res.filter((res) => res.info.avgRating > 4.4);
     setRes(filterTopRatedRes);
   };
 
-  return (
+  // It takes two args, cb() func & dependency array []
+  // cb() is called after the component is rendered
+  useEffect(() => {
+    fetchRestaurants();
+  }, []);
+
+  // Conditional Rendering >>
+  // if (!res?.length) {
+  // !NOTE: Shimmer UI
+  //   return <Shimmer />;
+  // }
+
+  // Ternary Condition rendering
+  return !res?.length ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="search">
         <input placeholder="Search here" />
