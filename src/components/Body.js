@@ -3,7 +3,9 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [res, setRes] = useState([]);
+  const [restaurantList, setRestaurantList] = useState([]);
+  const [filteredResList, setFilteredList] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const fetchRestaurants = async () => {
     const data = await fetch(
@@ -13,43 +15,56 @@ const Body = () => {
     const json = await data.json();
     console.log("json", json);
 
-    setRes(
-      json?.data.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+    const resData =
+      json?.data.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+
+    setRestaurantList(resData);
+    setFilteredList(resData);
   };
 
   const onFilter = () => {
-    const filterTopRatedRes = res.filter((res) => res.info.avgRating > 4.4);
-    setRes(filterTopRatedRes);
+    const filterTopRatedRes = restaurantList.filter(
+      (restaurantList) => restaurantList.info.avgRating > 4.4
+    );
+    setFilteredList(filterTopRatedRes);
   };
 
-  // It takes two args, cb() func & dependency array []
-  // cb() is called after the component is rendered
+  const onSearch = () => {
+    console.log("search", searchInput, restaurantList);
+
+    const resList = [...restaurantList];
+
+    const searchList = resList.filter((el) =>
+      el.info.name.toLocaleLowerCase().includes(searchInput.toLocaleLowerCase())
+    );
+    console.log("searchList", searchList);
+    setFilteredList(searchList);
+  };
+
   useEffect(() => {
     fetchRestaurants();
   }, []);
 
-  // Conditional Rendering >>
-  // if (!res?.length) {
-  // !NOTE: Shimmer UI
-  //   return <Shimmer />;
-  // }
-
   // Ternary Condition rendering
-  return !res?.length ? (
+  return !restaurantList?.length ? (
     <Shimmer />
   ) : (
     <div className="body">
       <div className="search">
-        <input placeholder="Search here" />
-        <button>Search</button>
+        <input
+          placeholder="Search here"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <button onClick={() => onSearch()}>Search</button>
       </div>
 
       <div className="top-rated-filter">
         <button onClick={() => onFilter()}>Top Rated Restaurant</button>
       </div>
+
       <div className="res-container">
-        {res.map((restaurant) => (
+        {filteredResList.map((restaurant) => (
           <RestaurantCard key={restaurant.info.id} resData={restaurant.info} />
         ))}
       </div>
